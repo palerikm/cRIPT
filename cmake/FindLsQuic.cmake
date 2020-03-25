@@ -1,0 +1,34 @@
+IF (DEFINED LSQUIC_DIR)
+    MESSAGE(STATUS "LSQUIC directory ${LSQUIC_DIR}")
+
+    FIND_PATH(LSQUIC_INCLUDE
+            NAMES lsquic.h
+            PATHS ${LSQUIC_DIR}/include
+            NO_DEFAULT_PATH)
+
+    FIND_LIBRARY(LSQUIC_LIB
+            NAMES liblsquic.a
+            PATHS ${LSQUIC_DIR}/src/liblsquic
+            NO_DEFAULT_PATH)
+
+ELSE()
+    MESSAGE(FATAL_ERROR "NO LSQUIC_DIR defined")
+ENDIF()
+
+
+
+MESSAGE(STATUS "LSQUIC directory ${LSQUIC_DIR}")
+
+
+IF (LSQUIC_INCLUDE)
+    MESSAGE(STATUS "LSQUIC include directory ${LSQUIC_INCLUDE}")
+    INCLUDE_DIRECTORIES(${LSQUIC_INCLUDE})
+ELSE()
+    MESSAGE(FATAL_ERROR "LSQUIC headers not found")
+ENDIF()
+
+IF(LSQUIC_LIB)
+    MESSAGE(STATUS "Found LSQUICK library: ${LSQUIC_LIB}")
+ELSE()
+    MESSAGE(FATAL_ERROR "${LSQUIC_LIB} library not found")
+ENDIF()
